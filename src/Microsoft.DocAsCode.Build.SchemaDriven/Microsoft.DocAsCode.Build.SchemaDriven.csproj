@@ -1,4 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net6.0</TargetFrameworks>
+  </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="..\..\schemas\v1.0\schema.json" Link="schemas\v1.0\schema.json" />
   </ItemGroup>

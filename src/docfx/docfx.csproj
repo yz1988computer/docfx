@@ -4,6 +4,7 @@
     <PackAsTool>true</PackAsTool>
     <RollForward>Major</RollForward>
     <Description>The docfx command line tool published as .NET tool</Description>
+    <TargetFrameworks>net6.0</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>

@@ -17,12 +17,7 @@ internal static class CompilationHelper
     private static readonly SyntaxTree[] s_assemblyBootstrap = new[]
     {
         CS.SyntaxFactory.ParseSyntaxTree(
-            """
-            class Bootstrap
-            {
-                public static void Main(string[] foo) { }
-            }
-            """),
+            " class Bootstrap { public static void Main(string[] foo) { } } "),
     };
 
     public static bool CheckDiagnostics(this Compilation compilation, bool errorAsWarning)

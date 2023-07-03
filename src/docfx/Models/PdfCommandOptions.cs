@@ -64,4 +64,8 @@ internal class PdfCommandOptions : BuildCommandOptions
     [Description("The path and file name of a wkhtmltopdf.exe compatible executable. This path may be relative to the current working directory. If not specified, wkhtmltopdf.exe will be searched in paths specified in the PATH environment variable.")]
     [CommandOption("--filePath")]
     public string FilePath { get; set; }
+
+    [Description("图片对齐方式，默认左对齐(center/left/right)")]
+    [CommandOption("--imageAlign")]
+    public string ImageAlign { get; set; }
 }

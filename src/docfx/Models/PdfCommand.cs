@@ -92,6 +92,11 @@ internal class PdfCommand : Command<PdfCommandOptions>
         {
             config.Wkhtmltopdf.FilePath = Path.Combine(Environment.CurrentDirectory, options.FilePath);
         }
+
+        if (!string.IsNullOrEmpty(options.ImageAlign))
+        {
+            config.ImageAlign = options.ImageAlign;
+        }
     }
 
     private sealed class PdfConfig

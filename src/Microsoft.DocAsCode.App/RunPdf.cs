@@ -48,6 +48,7 @@ internal static class RunPdf
             OutlineOption = config.OutlineOption,
             CoverPageTitle = config.CoverPageTitle,
             NoInputStreamArgs = config.NoInputStreamArgs,
+            ImageAlign = config.ImageAlign
         };
 
         // 1. call BuildCommand to generate html files first

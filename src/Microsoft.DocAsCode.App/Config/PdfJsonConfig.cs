@@ -77,4 +77,7 @@ internal class PdfJsonConfig : BuildJsonConfig
     /// </summary>
     [JsonProperty("noStdin")]
     public bool NoInputStreamArgs { get; set; }
+
+    [JsonProperty("imgAlign")]
+    public string ImageAlign { get; set; }
 }

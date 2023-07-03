@@ -79,4 +79,9 @@ public class PdfOptions
     /// Are input arguments set using command line
     /// </summary>
     public bool NoInputStreamArgs { get; set; }
+
+    /// <summary>
+    /// 图片对齐方式.
+    /// </summary>
+    public string ImageAlign { get; set; }
 }

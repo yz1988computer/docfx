@@ -22,7 +22,13 @@ src                      | Defines the source projects to have metadata generate
 dest                     | Defines the output folder of the generated metadata files. Relative paths are relative to the docfx.json file being used. To go up a folder use `../`.
 shouldSkipMarkup         | If set to true, DocFX would not render triple-slash-comments in source code as markdown.
 filter                   | Defines the filter configuration file, please go to [How to filter out unwanted apis attributes](../tutorial/howto_filter_out_unwanted_apis_attributes.md) for more details.
-properties               |  Defines an optional set of MSBuild properties used when interpreting project files. These are the same properties that are passed to msbuild via the `/property:name=value` command line argument.
+disableDefaultFilter     | Disables the default filter configuration file.
+disableGitFeatures       | Disables generation of view source links.
+properties               | Defines an optional set of MSBuild properties used when interpreting project files. These are the same properties that are passed to msbuild via the `/property:name=value` command line argument.
+noRestore                | Do not run `dotnet restore` before building the projects.
+namespaceLayout          | Defines how namespaces in TOC are organized. When set to *flattened*, renders namespaces as a single flat list. When set to *nested*, renders namespaces in a nested tree form. The default is *flattened*.
+memberLayout             | Defines how member pages are organized. When set to *samePage*, places members in the same page as their containing type. When set to *separatePages*, places members in separate pages. The default is *samePage*.
+allowCompilationErrors   | When enabled, continues documentation generation in case of compilation errors.
 
 **Sample**
 ```json
@@ -80,7 +86,7 @@ exportViewModel          | If set to true, data model to apply template will be 
 viewModelOutputFolder    | Specify the output folder for the view model. If not set, the view model will be generated to the same folder as the output documentation.
 dryRun                   | If set to true, template will not be actually applied to the documents. This option is always used with `--exportRawModel` or `--exportViewModel`, so that only raw model files or view model files are generated.
 maxParallelism           | Set the max parallelism, 0 (default) is same as the count of CPU cores.
-markdownEngineProperties | Set the parameters for markdown engine, value should be a JSON string.
+markdownEngineProperties | Set the parameters for markdown engine, value is a JSON object.
 keepFileLink             | If set to true, docfx does not dereference (aka. copy) file to the output folder, instead, it saves a `link_to_path` property inside `manifest.json` to indicate the physical location of that file. A file link will be created by incremental build and copy resource file.
 sitemap                  | In format [SitemapOptions](#125-sitemapoptions) Specifies the options for the sitemap.xml file.
 disableGitFeatures       | Disable fetching Git related information for articles. Set to `true` if fetching git related information is slow for huge Git repositories. Default value is `false`.

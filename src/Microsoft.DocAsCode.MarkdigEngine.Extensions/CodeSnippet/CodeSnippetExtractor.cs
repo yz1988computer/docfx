@@ -1,5 +1,5 @@
-// Copyright (c) Microsoft. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Text;
 using System.Text.RegularExpressions;
@@ -9,7 +9,7 @@ namespace Microsoft.DocAsCode.MarkdigEngine.Extensions;
 
 public class CodeSnippetExtractor
 {
-    private static readonly Regex TagnameFormat = new(@"^[\w\.]+$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+    private static readonly Regex TagnameFormat = new(@"^[\w\.-]+$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
     private readonly string StartLineTemplate;
     private readonly string EndLineTemplate;
     private readonly bool IsEndLineContainsTagName;
@@ -27,11 +27,11 @@ public class CodeSnippetExtractor
         var result = new Dictionary<string, CodeRange>(StringComparer.OrdinalIgnoreCase);
         var tagStack = new Stack<string>();
 
-        for(int index = 0; index < lines.Length; index++)
+        for (int index = 0; index < lines.Length; index++)
         {
             var line = lines[index];
 
-            if(MatchTag(line, EndLineTemplate, out var tagName, IsEndLineContainsTagName))
+            if (MatchTag(line, EndLineTemplate, out var tagName, IsEndLineContainsTagName))
             {
                 tagLines.Add(index);
                 if (!IsEndLineContainsTagName)
@@ -39,7 +39,7 @@ public class CodeSnippetExtractor
                     tagName = tagStack.Count > 0 ? tagStack.Pop() : string.Empty;
                 }
 
-                if(result.ContainsKey(tagName))
+                if (result.ContainsKey(tagName))
                 {
                     if (result[tagName].End == 0)
                     {
@@ -90,7 +90,7 @@ public class CodeSnippetExtractor
 
         //match tagname
         var sb = new StringBuilder();
-        while(column < line.Length && (afterTagName == string.Empty || line[column] != afterTagName[0]))
+        while (column < line.Length && (afterTagName == string.Empty || line[column] != afterTagName[0]))
         {
             sb.Append(line[column]);
             column++;
@@ -99,7 +99,7 @@ public class CodeSnippetExtractor
 
         //match after tagname
         index = 0;
-        while(column < line.Length && index < afterTagName.Length)
+        while (column < line.Length && index < afterTagName.Length)
         {
             if (!CharHelper.IsWhitespace(line[column]))
             {

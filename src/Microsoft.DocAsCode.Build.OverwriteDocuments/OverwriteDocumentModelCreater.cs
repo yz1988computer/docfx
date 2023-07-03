@@ -1,5 +1,5 @@
-﻿// Copyright (c) Microsoft. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
 
 using Markdig.Syntax;
 
@@ -70,7 +70,7 @@ public class OverwriteDocumentModelCreater
             AppendNewObject(OPathSegments, content.PropertyNameSource, CreateDocument(content), currentMetadata);
         }
 
-        return currentMetadata.ToDictionary(k => k.Key.ToString(), k=> k.Value);
+        return currentMetadata.ToDictionary(k => k.Key.ToString(), k => k.Value);
     }
 
     private void AppendNewObject(List<OPathSegment> OPathSegments, Block codeHeaderBlock, MarkdownDocument propertyValue, Dictionary<object, object> contentsMetadata)

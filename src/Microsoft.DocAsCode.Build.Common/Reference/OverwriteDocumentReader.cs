@@ -1,14 +1,12 @@
-﻿// Copyright (c) Microsoft. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
-
-using YamlDotNet.Serialization;
-using YamlDotNet.Core;
-using YamlDotNet.Serialization.Utilities;
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
 
 using Microsoft.DocAsCode.Common;
 using Microsoft.DocAsCode.DataContracts.Common;
 using Microsoft.DocAsCode.Plugins;
-
+using YamlDotNet.Core;
+using YamlDotNet.Serialization;
+using YamlDotNet.Serialization.Utilities;
 using Constants = Microsoft.DocAsCode.DataContracts.Common.Constants;
 using YamlDeserializer = Microsoft.DocAsCode.YamlSerialization.YamlDeserializer;
 

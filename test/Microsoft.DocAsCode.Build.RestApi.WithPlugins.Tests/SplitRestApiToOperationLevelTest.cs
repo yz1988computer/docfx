@@ -1,18 +1,16 @@
-﻿// Copyright (c) Microsoft. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Collections.Immutable;
-
 using Microsoft.DocAsCode.Build.Engine;
-using Microsoft.DocAsCode.Build.TableOfContents;
 using Microsoft.DocAsCode.Build.OperationLevelRestApi;
+using Microsoft.DocAsCode.Build.TableOfContents;
 using Microsoft.DocAsCode.Build.TagLevelRestApi;
 using Microsoft.DocAsCode.Common;
 using Microsoft.DocAsCode.DataContracts.Common;
 using Microsoft.DocAsCode.DataContracts.RestApi;
 using Microsoft.DocAsCode.Plugins;
 using Microsoft.DocAsCode.Tests.Common;
-
 using Newtonsoft.Json.Linq;
 using Xunit;
 
@@ -40,7 +38,7 @@ public class SplitRestApiToOperationLevelTest : TestBase
             RawModelExportSettings = { Export = true },
             TransformDocument = true,
         };
-        _templateManager = new TemplateManager(null, null, new List<string> { "template" }, null, "TestData/");
+        _templateManager = new TemplateManager(new List<string> { "template" }, null, "TestData/");
     }
 
     [Fact]

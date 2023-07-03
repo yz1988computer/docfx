@@ -1,7 +1,6 @@
-﻿// Copyright (c) Microsoft. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
 
-using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Immutable;
 
@@ -21,7 +20,7 @@ public sealed class DocumentBuildContext : IDocumentBuildContext
 
     public DocumentBuildContext(string buildOutputFolder)
         : this(buildOutputFolder, Enumerable.Empty<FileAndType>(), ImmutableArray<string>.Empty, ImmutableArray<string>.Empty, 1, Directory.GetCurrentDirectory(), string.Empty, null, null) { }
-    
+
     public DocumentBuildContext(string buildOutputFolder, IEnumerable<FileAndType> allSourceFiles, ImmutableArray<string> externalReferencePackages, ImmutableArray<string> xrefMaps, int maxParallelism, string baseFolder, string versionName, ApplyTemplateSettings applyTemplateSetting, string rootTocPath)
         : this(buildOutputFolder, allSourceFiles, externalReferencePackages, xrefMaps, maxParallelism, baseFolder, versionName, applyTemplateSetting, rootTocPath, null) { }
 
@@ -45,7 +44,7 @@ public sealed class DocumentBuildContext : IDocumentBuildContext
         {
             _reader = new XRefCollection(
                 from u in parameters.XRefMaps
-                select new Uri(u, UriKind.RelativeOrAbsolute)).GetReaderAsync(parameters.Files.DefaultBaseDir, GetFallbackFolders(parameters.MarkdownEngineParameters));
+                select new Uri(u, UriKind.RelativeOrAbsolute)).GetReaderAsync(parameters.Files.DefaultBaseDir, parameters.MarkdownEngineParameters?.FallbackFolders);
         }
         RootTocPath = parameters.RootTocPath;
 
@@ -288,11 +287,11 @@ public sealed class DocumentBuildContext : IDocumentBuildContext
     {
         Logger.LogInfo($"Downloading xref maps from:{Environment.NewLine}{string.Join(Environment.NewLine, _xrefMapUrls)}");
         var mapTasks = (from url in _xrefMapUrls
-            select LoadXRefMap(url, _client)).ToArray();
+                        select LoadXRefMap(url, _client)).ToArray();
         Task.WaitAll(mapTasks);
         return (from t in mapTasks
-            where t.Result != null
-            select t.Result).ToList();
+                where t.Result != null
+                select t.Result).ToList();
     }
 
     private async Task<XRefMap> LoadXRefMap(string url, HttpClient client)
@@ -595,22 +594,5 @@ public sealed class DocumentBuildContext : IDocumentBuildContext
             return null;
         }
         return YamlUtility.ConvertTo<XRefSpec>(vm);
-    }
-
-    private static IReadOnlyList<string> GetFallbackFolders(ImmutableDictionary<string, object> markdownEngineParameters)
-    {
-        IReadOnlyList<string> fallbackFolders = null;
-        if (markdownEngineParameters.TryGetValue("fallbackFolders", out object obj))
-        {
-            try
-            {
-                fallbackFolders = ((IEnumerable)obj).Cast<string>().ToList();
-            }
-            catch
-            {
-                // Swallow cast exception. 
-            }
-        }
-        return fallbackFolders;
     }
 }

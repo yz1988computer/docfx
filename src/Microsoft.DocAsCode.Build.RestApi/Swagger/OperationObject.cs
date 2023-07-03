@@ -1,10 +1,9 @@
-// Copyright (c) Microsoft. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
-
-using Newtonsoft.Json;
-using YamlDotNet.Serialization;
+// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
 
 using Microsoft.DocAsCode.YamlSerialization;
+using Newtonsoft.Json;
+using YamlDotNet.Serialization;
 
 namespace Microsoft.DocAsCode.Build.RestApi.Swagger;
 

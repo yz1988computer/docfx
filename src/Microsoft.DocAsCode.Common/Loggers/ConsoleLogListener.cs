@@ -1,5 +1,5 @@
-﻿// Copyright (c) Microsoft. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Text;
 using Microsoft.DocAsCode.Plugins;
@@ -25,8 +25,21 @@ public sealed class ConsoleLogListener : ILoggerListener
             if (!string.IsNullOrEmpty(item.Line))
                 message.Append($"({item.Line},1)");
             if (!string.IsNullOrEmpty(item.Code))
-                message.Append($": {item.LogLevel.ToString().ToLowerInvariant()} {item.Code}");
+            {
+                message.Append($": {level.ToString().ToLowerInvariant()} {item.Code}");
+            }
+            else
+            {
+                // Append warning/error message to distinguish log category from message.
+                if (level >= LogLevel.Warning)
+                    message.Append($": {level.ToString().ToLowerInvariant()}");
+            }
             message.Append(": ");
+        }
+        else
+        {
+            if (level >= LogLevel.Warning)
+                message.Append($"{level.ToString().ToLowerInvariant()}: ");
         }
 
         message.Append(item.Message);

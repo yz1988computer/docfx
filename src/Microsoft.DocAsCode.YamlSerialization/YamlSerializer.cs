@@ -1,8 +1,11 @@
-﻿// Copyright (c) Microsoft. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
 
+using Microsoft.DocAsCode.YamlSerialization.Helpers;
+using Microsoft.DocAsCode.YamlSerialization.ObjectDescriptors;
+using Microsoft.DocAsCode.YamlSerialization.ObjectGraphTraversalStrategies;
 using Microsoft.DocAsCode.YamlSerialization.ObjectGraphVisitors;
-
+using Microsoft.DocAsCode.YamlSerialization.TypeInspectors;
 using YamlDotNet.Core;
 using YamlDotNet.Core.Events;
 using YamlDotNet.Serialization;
@@ -11,11 +14,6 @@ using YamlDotNet.Serialization.NamingConventions;
 using YamlDotNet.Serialization.ObjectGraphVisitors;
 using YamlDotNet.Serialization.TypeInspectors;
 using YamlDotNet.Serialization.TypeResolvers;
-
-using Microsoft.DocAsCode.YamlSerialization.Helpers;
-using Microsoft.DocAsCode.YamlSerialization.ObjectDescriptors;
-using Microsoft.DocAsCode.YamlSerialization.ObjectGraphTraversalStrategies;
-using Microsoft.DocAsCode.YamlSerialization.TypeInspectors;
 
 namespace Microsoft.DocAsCode.YamlSerialization;
 

@@ -1,5 +1,5 @@
-// Copyright (c) Microsoft. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
 
 using Markdig.Renderers;
 using Markdig.Renderers.Html;
@@ -128,7 +128,8 @@ public class ImageExtension : ITripleColonExtensionInfo
             if (tripleColonObj is Block)
             {
                 renderer.WriteLine("<p class=\"mx-imgBorder\">");
-            } else
+            }
+            else
             {
                 renderer.WriteLine("<span class=\"mx-imgBorder\">");
             }
@@ -136,7 +137,7 @@ public class ImageExtension : ITripleColonExtensionInfo
         }
         else
         {
-            if(tripleColonObj is Block) renderer.WriteLine("<p>");
+            if (tripleColonObj is Block) renderer.WriteLine("<p>");
         }
         if (!string.IsNullOrEmpty(currentLink))
         {
@@ -157,13 +158,13 @@ public class ImageExtension : ITripleColonExtensionInfo
         {
             renderer.Write("<img").WriteAttributes(obj).WriteLine(">");
 
-            if(tripleColonObj is ContainerBlock
+            if (tripleColonObj is ContainerBlock
                 && (tripleColonObj as ContainerBlock).LastChild != null)
             {
                 var inline = ((tripleColonObj as ContainerBlock).LastChild as ParagraphBlock).Inline;
                 renderer.WriteChildren(inline);
             }
-            
+
         }
         else
         {
@@ -185,9 +186,10 @@ public class ImageExtension : ITripleColonExtensionInfo
         if (tripleColonObj is Block)
         {
             renderer.WriteLine("</p>");
-        } else
+        }
+        else
         {
-            if(currentBorder) renderer.WriteLine("</span>");
+            if (currentBorder) renderer.WriteLine("</span>");
             renderer.WriteChildren(tripleColonObj as ContainerInline);
         }
         return true;

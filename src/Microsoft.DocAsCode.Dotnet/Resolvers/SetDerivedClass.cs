@@ -1,11 +1,11 @@
-﻿// Copyright (c) Microsoft. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
 
 using Microsoft.DocAsCode.DataContracts.ManagedReference;
 
 namespace Microsoft.DocAsCode.Dotnet;
 
-internal class SetDerivedClass: IResolverPipeline
+internal class SetDerivedClass : IResolverPipeline
 {
     private readonly Dictionary<string, List<string>> _derivedClassMapping = new();
 
@@ -23,7 +23,7 @@ internal class SetDerivedClass: IResolverPipeline
         foreach (var item in items ?? Enumerable.Empty<MetadataItem>())
         {
             var inheritance = item.Inheritance;
-            if (inheritance!= null && inheritance.Count > 0)
+            if (inheritance != null && inheritance.Count > 0)
             {
                 var superClass = inheritance[inheritance.Count - 1];
 

@@ -1,5 +1,5 @@
-// Copyright (c) Microsoft. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Diagnostics;
 
@@ -180,7 +180,7 @@ public static class Logger
         }
 
         ConsoleUtility.WriteLine($"    {_warningCount} warning(s)", _warningCount > 0 ? ConsoleColor.Yellow : ConsoleColor.White);
-        ConsoleUtility.WriteLine($"    { _errorCount} error(s)\n", _errorCount > 0 ? ConsoleColor.Red : ConsoleColor.White);
+        ConsoleUtility.WriteLine($"    {_errorCount} error(s)\n", _errorCount > 0 ? ConsoleColor.Red : ConsoleColor.White);
     }
 
     [Serializable]

@@ -1,5 +1,5 @@
-﻿// Copyright (c) Microsoft. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
 
 using System.ComponentModel;
 
@@ -349,7 +349,7 @@ public class ItemViewModel : IOverwriteDocumentViewModel
 
         if (item.Inheritance != null)
         {
-            foreach(var i in GetInheritanceUidReference(item.Inheritance))
+            foreach (var i in GetInheritanceUidReference(item.Inheritance))
             {
                 yield return i;
             }

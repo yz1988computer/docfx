@@ -1,14 +1,13 @@
-// Copyright (c) Microsoft. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Collections.Immutable;
-
 using Markdig;
 using Markdig.Renderers;
 using Markdig.Syntax;
-using Microsoft.DocAsCode.Plugins;
 using Microsoft.DocAsCode.Common;
 using Microsoft.DocAsCode.MarkdigEngine.Extensions;
+using Microsoft.DocAsCode.Plugins;
 
 namespace Microsoft.DocAsCode.MarkdigEngine;
 
@@ -134,14 +133,11 @@ public class MarkdigMarkdownService : IMarkdownService
 
     private MarkdownPipeline CreateMarkdownPipeline(bool isInline, bool enableValidation, bool multipleYamlHeader = false)
     {
-        object enableSourceInfoObj = null;
-        _parameters?.Extensions?.TryGetValue(Constants.EngineProperties.EnableSourceInfo, out enableSourceInfoObj);
-
-        var enableSourceInfo = !(enableSourceInfoObj is bool enabled) || enabled;
+        var enableSourceInfo = _parameters?.Extensions?.EnableSourceInfo ?? true;
 
         var builder = new MarkdownPipelineBuilder();
 
-        builder.UseDocfxExtensions(_context);
+        builder.UseDocfxExtensions(_context, _parameters.Extensions?.Alerts);
         builder.Extensions.Insert(0, new YamlHeaderExtension(_context) { AllowInMiddleOfDocument = multipleYamlHeader });
 
         if (enableSourceInfo)
@@ -159,11 +155,9 @@ public class MarkdigMarkdownService : IMarkdownService
             builder.UseInlineOnly();
         }
 
-        object optionalExtensionsObj = null;
-        if ((_parameters?.Extensions?.TryGetValue(Constants.EngineProperties.MarkdigExtensions, out optionalExtensionsObj) ?? false)
-            && optionalExtensionsObj is IEnumerable<object> optionalExtensions)
+        if (_parameters?.Extensions?.MarkdigExtensions is { } extensions && extensions.Length > 0)
         {
-            builder.UseOptionalExtensions(optionalExtensions.Select(e => e as string).Where(e => e != null));
+            builder.UseOptionalExtensions(extensions);
         }
 
         if (_configureMarkdig != null)

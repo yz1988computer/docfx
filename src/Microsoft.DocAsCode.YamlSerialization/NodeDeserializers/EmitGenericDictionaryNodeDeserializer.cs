@@ -1,15 +1,13 @@
-﻿// Copyright (c) Microsoft. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
 
 using System.ComponentModel;
 using System.Reflection;
 using System.Reflection.Emit;
-
+using Microsoft.DocAsCode.YamlSerialization.Helpers;
 using YamlDotNet.Core;
 using YamlDotNet.Core.Events;
 using YamlDotNet.Serialization;
-
-using Microsoft.DocAsCode.YamlSerialization.Helpers;
 
 namespace Microsoft.DocAsCode.YamlSerialization.NodeDeserializers;
 
@@ -17,7 +15,7 @@ public class EmitGenericDictionaryNodeDeserializer : INodeDeserializer
 {
     private static readonly MethodInfo DeserializeHelperMethod =
         typeof(EmitGenericDictionaryNodeDeserializer).GetMethod(nameof(DeserializeHelper));
-        private readonly IObjectFactory _objectFactory;
+    private readonly IObjectFactory _objectFactory;
     private readonly Dictionary<Type, Type[]> _gpCache =
         new();
     private readonly Dictionary<Tuple<Type, Type>, Action<IParser, Type, Func<IParser, Type, object>, object>> _actionCache =

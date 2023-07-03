@@ -1,5 +1,5 @@
-// Copyright (c) Microsoft. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
 
 namespace Microsoft.DocAsCode.DataContracts.Common;
 
@@ -12,7 +12,11 @@ public static class Constants
 
     public static class DocumentType
     {
+        public const string Conceptual = "Conceptual";
         public const string Toc = "Toc";
+        public const string ManagedReference = "ManagedReference";
+        public const string Resource = "Resource";
+        public const string Redirection = "Redirection";
     }
 
     public static class PropertyName
@@ -60,6 +64,8 @@ public static class Constants
         public const string SystemKeys = "_systemKeys";
 
         public const string OutputFileName = "outputFileName";
+
+        public const string RedirectUrl = "redirect_url";
     }
 
     public static class MetadataName

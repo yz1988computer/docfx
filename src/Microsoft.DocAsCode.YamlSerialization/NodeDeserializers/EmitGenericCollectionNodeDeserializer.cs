@@ -1,16 +1,13 @@
-﻿// Copyright (c) Microsoft. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Reflection;
 using System.Reflection.Emit;
-
+using Microsoft.DocAsCode.YamlSerialization.Helpers;
 using YamlDotNet.Core;
 using YamlDotNet.Core.Events;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.Utilities;
-
-using Microsoft.DocAsCode.YamlSerialization.Helpers;
-
 using EditorBrowsable = System.ComponentModel.EditorBrowsableAttribute;
 using EditorBrowsableState = System.ComponentModel.EditorBrowsableState;
 
@@ -20,7 +17,7 @@ public class EmitGenericCollectionNodeDeserializer : INodeDeserializer
 {
     private static readonly MethodInfo DeserializeHelperMethod =
         typeof(EmitGenericCollectionNodeDeserializer).GetMethod(nameof(DeserializeHelper));
-        private readonly IObjectFactory _objectFactory;
+    private readonly IObjectFactory _objectFactory;
     private readonly Dictionary<Type, Type> _gpCache =
         new();
     private readonly Dictionary<Type, Action<IParser, Type, Func<IParser, Type, object>, object>> _actionCache =

@@ -1,5 +1,5 @@
-﻿// Copyright (c) Microsoft. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
 
 using Microsoft.DocAsCode.Plugins;
 
@@ -24,7 +24,7 @@ public struct FileLinkInfo
 
     public bool IsResolved => ToFileInDest != null;
 
-    public GroupInfo GroupInfo { get;set; }
+    public GroupInfo GroupInfo { get; set; }
 
     public static FileLinkInfo Create(string fromFileInSource, string fromFileInDest, string href, IDocumentBuildContext context)
     {

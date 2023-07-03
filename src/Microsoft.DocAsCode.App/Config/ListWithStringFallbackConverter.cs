@@ -1,5 +1,5 @@
-// Copyright (c) Microsoft. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -53,7 +53,7 @@ internal class ListWithStringFallbackConverter : JsonConverter
     public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
     {
         writer.WriteStartArray();
-        foreach(var item in (ListWithStringFallback)value)
+        foreach (var item in (ListWithStringFallback)value)
         {
             serializer.Serialize(writer, item);
         }

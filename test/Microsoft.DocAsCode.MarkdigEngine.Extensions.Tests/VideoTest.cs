@@ -1,5 +1,5 @@
-// Copyright (c) Microsoft. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
 
 using Xunit;
 
@@ -32,7 +32,7 @@ public class VideoTest
     {
         TestUtility.VerifyMarkup(source, expected);
     }
-    
+
     [Theory]
     [InlineData(@":::video source="""" title=""My title"":::", @"<p>:::video source=&quot;&quot; title=&quot;My title&quot;:::</p>
 ")]

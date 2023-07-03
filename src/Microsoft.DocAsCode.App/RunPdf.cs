@@ -1,5 +1,5 @@
-// Copyright (c) Microsoft. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
 
 using Microsoft.DocAsCode.Common;
 using Microsoft.DocAsCode.Exceptions;
@@ -24,7 +24,10 @@ internal static class RunPdf
             config.Templates = new ListWithStringFallback(new List<string> { "pdf.default" });
         }
 
-        var outputFolder = Path.GetFullPath(Path.Combine(string.IsNullOrEmpty(outputDirectory) ? baseDirectory : outputDirectory, config.Destination ?? string.Empty));
+        var outputFolder = Path.GetFullPath(Path.Combine(
+            string.IsNullOrEmpty(outputDirectory) ? Path.Combine(baseDirectory, config.Output ?? "") : outputDirectory,
+            config.Destination ?? ""));
+
         var rawOutputFolder = string.IsNullOrEmpty(config.RawOutputFolder) ? Path.Combine(outputFolder, "_raw") : config.RawOutputFolder;
         var options = new PdfOptions
         {

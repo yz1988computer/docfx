@@ -1,7 +1,8 @@
-// Copyright (c) Microsoft. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
 
 using Microsoft.DocAsCode.Common;
+using Microsoft.DocAsCode.Plugins;
 using Newtonsoft.Json;
 using Spectre.Console.Cli;
 
@@ -78,24 +79,44 @@ internal class BuildCommand : Command<BuildCommandOptions>
         }
         if (options.MarkdownEngineProperties != null)
         {
-            config.MarkdownEngineProperties =
-                JsonConvert.DeserializeObject<Dictionary<string, object>>(
-                    options.MarkdownEngineProperties,
-                    new JsonSerializerSettings
-                    {
-                        Converters =
-                        {
-                            new JObjectDictionaryToObjectDictionaryConverter()
-                        }
-                    });
+            config.MarkdownEngineProperties = JsonConvert.DeserializeObject<MarkdownServiceProperties>(options.MarkdownEngineProperties);
         }
 
         config.GlobalMetadataFilePaths =
             new ListWithStringFallback(config.GlobalMetadataFilePaths.Select(
                 path => PathUtility.IsRelativePath(path) ? Path.Combine(configDirectory, path) : path).Reverse());
 
+        SetGlobalMetadataFromCommandLineArgs();
+
         config.KeepFileLink |= options.KeepFileLink;
         config.DisableGitFeatures |= options.DisableGitFeatures;
+
+        void SetGlobalMetadataFromCommandLineArgs()
+        {
+            if (options.Metadata != null)
+            {
+                config.GlobalMetadata ??= new();
+                foreach (var metadata in options.Metadata)
+                {
+                    var (key, value) = ParseMetadata(metadata);
+                    config.GlobalMetadata[key] = value;
+                }
+            }
+
+            static (string key, object value) ParseMetadata(string metadata)
+            {
+                if (metadata.IndexOf('=') is int i && i < 0)
+                    return (metadata, true);
+
+                var key = metadata.Substring(0, i);
+                var value = metadata.Substring(i + 1);
+
+                if (bool.TryParse(value, out var boolean))
+                    return (key, boolean);
+
+                return (key, value);
+            }
+        }
     }
 
     private sealed class BuildConfig

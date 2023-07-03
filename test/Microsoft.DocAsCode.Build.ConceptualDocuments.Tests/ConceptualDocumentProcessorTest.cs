@@ -1,16 +1,14 @@
-﻿// Copyright (c) Microsoft. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Collections.Immutable;
 using System.Web;
-
-using Microsoft.DocAsCode.Build.Engine;
 using Microsoft.DocAsCode.Build.ConceptualDocuments;
+using Microsoft.DocAsCode.Build.Engine;
 using Microsoft.DocAsCode.Common;
 using Microsoft.DocAsCode.DataContracts.Common;
 using Microsoft.DocAsCode.Plugins;
 using Microsoft.DocAsCode.Tests.Common;
-
 using Newtonsoft.Json.Linq;
 using Xunit;
 
@@ -47,7 +45,7 @@ public class ConceptualDocumentProcessorTest : TestBase
         // Prepare conceptual template
         var templateCreator = new FileCreator(_templateFolder);
         var file = templateCreator.CreateFile(@"{{{conceptual}}}", "conceptual.html.tmpl", "default");
-        _templateManager = new TemplateManager(null, null, new List<string> { "default" }, null, _templateFolder);
+        _templateManager = new TemplateManager(new List<string> { "default" }, null, _templateFolder);
     }
 
     public override void Dispose()
@@ -350,6 +348,48 @@ Some content";
         Assert.Equal("This is title from YAML header", title);
     }
 
+    [Fact]
+    public void ProcessMarkdownFileWithRedirectUrl()
+    {
+        // arrange
+        const string FileName = "redirection.md";
+        const string RedirectUrl = "https://example.com";
+
+        var metadata = new Dictionary<string, object> { };
+        var content = $"""
+        ---
+        redirect_url: {RedirectUrl}
+        ---
+
+        # Heading1
+        Some content
+        """;
+        var file = _fileCreator.CreateFile(content, FileName);
+        var files = new FileCollection(_defaultFiles);
+        files.Add(DocumentType.Article, new[] { file });
+
+        // Add template for redirection.
+        var templateCreator = new FileCreator(_templateFolder);
+        templateCreator.CreateFile(@"{{{redirect_url}}}", "redirection.html.tmpl", "default");
+
+        // act
+        BuildDocument(files, metadata);
+
+        // assert
+
+        // Test `redirection.raw.json` content.
+        var outputRawModelPath = GetRawModelFilePath(file);
+        Assert.True(File.Exists(outputRawModelPath));
+        var model = JsonUtility.Deserialize<Dictionary<string, object>>(outputRawModelPath);
+        Assert.True(model.TryGetValue(Constants.PropertyName.RedirectUrl, out var redirectUrl));
+        Assert.Equal(RedirectUrl, redirectUrl);
+
+        // Test `manifest.json` content
+        var manifest = GetOutputManifest();
+        Assert.True(manifest.Files.Count == 1);
+        Assert.True(manifest.Files[0].DocumentType == Constants.DocumentType.Redirection);
+    }
+
     #region Private Helpers
     private string GetRawModelFilePath(string fileName)
     {
@@ -359,6 +399,12 @@ Some content";
     private string GetOutputFilePath(string fileName)
     {
         return Path.GetFullPath(Path.Combine(_outputFolder, Path.ChangeExtension(fileName, "html")));
+    }
+
+    private Manifest GetOutputManifest()
+    {
+        var manifestPath = Path.GetFullPath(Path.Combine(_outputFolder, "manifest.json"));
+        return JsonUtility.Deserialize<Manifest>(manifestPath);
     }
 
     private void BuildDocument(FileCollection files, Dictionary<string, object> metadata = null)

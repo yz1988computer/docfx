@@ -1,5 +1,5 @@
-// Copyright (c) Microsoft. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Composition.Hosting;
 
@@ -17,7 +17,7 @@ public class ValidationTest
 {
     public const string MarkdownValidatePhaseName = "Markdown style";
 
-    private readonly MarkdownContext DefaultContext = 
+    private readonly MarkdownContext DefaultContext =
         new(
             null,
             (code, message, origin, line) => Logger.LogInfo(message, null, null, line.ToString(), code),
@@ -221,7 +221,7 @@ public class ValidationTest
                 Behavior = TagValidationBehavior.Warning,
             },
         });
-        
+
         var listener = TestLoggerListener.CreateLoggerListenerWithPhaseEqualFilter(MarkdownValidatePhaseName);
         using (new LoggerPhaseScope(MarkdownValidatePhaseName))
         {

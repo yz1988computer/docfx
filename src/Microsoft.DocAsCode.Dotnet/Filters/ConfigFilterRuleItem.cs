@@ -1,5 +1,5 @@
-﻿// Copyright (c) Microsoft. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Text.RegularExpressions;
 
@@ -40,7 +40,7 @@ internal abstract class ConfigFilterRuleItem
             throw new ArgumentNullException("symbol");
         }
         var id = symbol.Id;
-        
+
         return (_uidRegex == null || (id != null && _uidRegex.IsMatch(id))) &&
             (Kind == null || Kind.Value.Contains(symbol)) &&
             (Attribute == null || Attribute.ContainedIn(symbol));

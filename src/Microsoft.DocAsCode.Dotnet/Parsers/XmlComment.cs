@@ -1,5 +1,5 @@
-// Copyright (c) Microsoft. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Text;
 using System.Text.RegularExpressions;
@@ -7,16 +7,14 @@ using System.Web;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
-
 using Markdig;
 using Markdig.Helpers;
 using Markdig.Renderers.Roundtrip;
 using Markdig.Syntax;
 using Markdig.Syntax.Inlines;
-
 using Microsoft.DocAsCode.Common;
-using Microsoft.DocAsCode.Plugins;
 using Microsoft.DocAsCode.DataContracts.ManagedReference;
+using Microsoft.DocAsCode.Plugins;
 
 namespace Microsoft.DocAsCode.Dotnet;
 
@@ -318,7 +316,7 @@ internal class XmlComment
                     if (item.Parent?.Parent != null)
                     {
                         XElement replacement;
-                        if(string.IsNullOrEmpty(item.Value))
+                        if (string.IsNullOrEmpty(item.Value))
                         {
                             replacement = XElement.Parse($"<xref href=\"{HttpUtility.UrlEncode(id)}\" data-throw-if-not-resolved=\"false\"></xref>");
                         }

@@ -1,5 +1,5 @@
-// Copyright (c) Microsoft. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Text;
 using System.Text.RegularExpressions;
@@ -92,7 +92,7 @@ public class GlobMatcher : IEquatable<GlobMatcher>
         if (file == null) throw new ArgumentNullException(nameof(file));
         var fileParts = Split(file, '/', '\\').ToArray();
         bool isMatch = false;
-        foreach(var glob in _items)
+        foreach (var glob in _items)
         {
             if (MatchOne(fileParts, glob, partial))
             {
@@ -323,7 +323,7 @@ public class GlobMatcher : IEquatable<GlobMatcher>
     /// <returns></returns>
     private IEnumerable<string> ExpandGlobStarShortcut(IEnumerable<string> globParts)
     {
-        foreach(var part in globParts)
+        foreach (var part in globParts)
         {
             if (ExpandGlobStarRegex.IsMatch(part))
             {
@@ -357,7 +357,7 @@ public class GlobMatcher : IEquatable<GlobMatcher>
             }
         }
 
-        for(int i = 0; i < fileParts.Length; i++)
+        for (int i = 0; i < fileParts.Length; i++)
         {
             status[cur, 0] = false;
             for (int j = 0; j < globParts.Length; j++)
@@ -402,7 +402,7 @@ public class GlobMatcher : IEquatable<GlobMatcher>
 
         return status[prev, globParts.Length];
     }
-    
+
     private bool DisallowedMatchExists(string filePart)
     {
         if (filePart == "."

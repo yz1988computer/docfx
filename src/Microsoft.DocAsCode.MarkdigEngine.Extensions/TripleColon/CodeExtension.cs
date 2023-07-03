@@ -1,5 +1,5 @@
-// Copyright (c) Microsoft. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
 
 using Markdig.Renderers;
 using Markdig.Renderers.Html;
@@ -105,7 +105,7 @@ public class CodeExtension : ITripleColonExtensionInfo
             return false;
         }
 
-        if(string.IsNullOrEmpty(language))
+        if (string.IsNullOrEmpty(language))
         {
             language = InferLanguageFromFile(source, logError);
         }
@@ -121,16 +121,16 @@ public class CodeExtension : ITripleColonExtensionInfo
 
         return true;
     }
-    
+
     private string InferLanguageFromFile(string source, Action<string> logError)
     {
         var fileExtension = Path.GetExtension(source);
-        if(fileExtension == null)
+        if (fileExtension == null)
         {
             logError("Language is not set, and your source has no file type. Cannot infer language.");
         }
         var language = HtmlCodeSnippetRenderer.GetLanguageByFileExtension(fileExtension);
-        if(string.IsNullOrEmpty(language))
+        if (string.IsNullOrEmpty(language))
         {
             logError("Language is not set, and we could not infer language from the file type.");
         }

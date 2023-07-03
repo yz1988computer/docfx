@@ -1,5 +1,5 @@
-﻿// Copyright (c) Microsoft. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Collections.Immutable;
 using Microsoft.DocAsCode.Build.Engine;
@@ -37,7 +37,7 @@ public class SchemaMergerTest : TestBase
             TransformDocument = true,
         };
 
-        _templateManager = new TemplateManager(null, null, new List<string> { "template" }, null, _templateFolder);
+        _templateManager = new TemplateManager(new List<string> { "template" }, null, _templateFolder);
     }
 
     [Fact]
@@ -235,7 +235,7 @@ Overwrite with content
         var rawModelFilePath = GetRawModelFilePath(inputFileName);
         Assert.True(File.Exists(rawModelFilePath));
         var rawModel = JsonUtility.Deserialize<JObject>(rawModelFilePath);
-            
+
         Assert.Equal("Hello world!", rawModel["meta"].Value<string>());
         Assert.Equal(2, rawModel["intValue"].Value<int>());
         Assert.Equal("string1", rawModel["stringValue"].Value<string>());

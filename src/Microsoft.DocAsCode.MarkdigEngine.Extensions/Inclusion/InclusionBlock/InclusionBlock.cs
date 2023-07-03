@@ -1,5 +1,5 @@
-// Copyright (c) Microsoft. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
 
 using Markdig.Parsers;
 using Markdig.Syntax;
@@ -16,7 +16,7 @@ public class InclusionBlock : ContainerBlock
 
     public string GetRawToken() => $"[!include[{Title}]({IncludedFilePath})]";
 
-    public InclusionBlock(BlockParser parser): base(parser)
+    public InclusionBlock(BlockParser parser) : base(parser)
     {
 
     }
